@@ -1,0 +1,41 @@
+
+#map-wrapper {
+    position: relative;
+    margin: 0 auto 10px;
+    img {
+        width: 100%;
+        display: block;
+    }
+    #names-image, #place-wrapper, #front-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    #front-overlay {
+        width: 100%;
+    }
+    #place-wrapper {
+        width: 100%;
+        svg {
+            width: 100%;
+        }
+        text {
+            font-size: 4pt;
+            color: #fff;
+            fill: #fff;
+            pointer-events: none;
+        }
+
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 1;
+        transition: opacity .6s;
+    }
+    .overlay-hidden {
+        opacity: 0;
+    }
+
+}

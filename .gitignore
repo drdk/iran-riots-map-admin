@@ -1,0 +1,12 @@
+# Dependency directories
+node_modules
+.cache
+# Files
+npm_debug.log
+.DS_Store
+# Output directories
+stage
+deploy
+dist
+dev
+workspace

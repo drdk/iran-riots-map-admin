@@ -1,0 +1,261 @@
+body {
+    font-family: Publik;
+}
+
+[iran-riots-map-admin] {
+    max-width: 850px;
+    margin: 0 auto;
+    #error {
+        position: absolute;
+        left: 0;
+        width: 100%
+    }
+    #error p {
+        font-size: 20px;
+        text-align: center;
+    }
+    main {
+        opacity: 0;
+        transition: opacity 0.5s;
+    }
+    &.active main {
+        opacity: 1;
+    }
+    .input-wrapper {
+        margin-bottom: 10px;
+    }
+    .header-wrapper {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    input, textarea {
+        font-family: Publik;
+        font-size: 16px;
+        padding: 5px;
+        box-sizing: border-box;
+
+        display: block;
+        width: 100%;
+        max-width: 100%;
+
+    }
+    input[type=file] {
+        display: none;
+    }
+    #upload, #delete-file {
+        margin-right: 10px;
+    }
+    .file-upload-wrapper {
+        display: flex;
+
+    }
+    .event-wrapper {
+        counter-increment: counter;
+        .number-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .number-wrapper::before {
+            content: counter(counter);
+            font-size: 16px;
+            width: 28px;
+            height: 28px;
+            background: #858585;
+            display: block;
+            text-align: center;
+            border-radius: 100%;
+            line-height: 1.8;
+            color: #fff;
+
+        }
+        &.sortable-chosen .number-wrapper::before {
+            visibility: hidden;
+        }
+        background: #e2e2e2;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        h4 {
+            margin: 5px 0 10px;
+        }
+        cursor: move; /* fallback if grab cursor is unsupported */
+        cursor: grab;
+        cursor: -moz-grab;
+        cursor: -webkit-grab;
+        &.sortable-chosen {
+            cursor: grabbing;
+            cursor: -moz-grabbing;
+            cursor: -webkit-grabbing;
+        }
+        .input-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        label {
+            min-width: 90px;
+            font-size: 14px;
+            margin-bottom: 0;
+            display: inline;
+        }
+        input,textarea {
+            font-family: Publik;
+            font-size: 14px;
+            padding: 2px;
+        }
+        textarea {
+            min-height: 80px
+        }
+
+    }
+    .header-wrapper input {
+        width: auto;
+    }
+
+    label {
+        font-size: 16px;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    button {
+        font-size: 16px;
+        background: #858585;
+        padding: 10px 20px;
+        color: white;
+        border: none;
+        font-family: Publik;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    .actions {
+        display: flex;
+        justify-content: space-between;
+    }
+    .actions.right {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .event-button-wrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .red {
+        background-color: #ff001e;
+    }
+    .green {
+        background-color: green;
+    }
+
+    .save-reset {
+        display: flex;
+        align-items: center;
+        * {
+            margin-right: 10px;
+        }
+    }
+    .event-header {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+    [delete-button] {
+        background: none;
+        padding: 2px 2px 5px 5px;
+        display: block;
+        svg {
+            width: 25px;
+            pointer-events: none;
+        }
+    }
+    .grab-lines{fill:#A0A0A0;}
+    .trashcan{fill:#858585;}
+    svg.handle {
+        width: 38px;
+        display: block;
+    }
+    .publication-wrapper {
+        display: flex;
+        align-items: center;
+    }
+    #publication-status {
+        margin-right: 10px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    #headlines {
+        margin-bottom: 20px;
+        input {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: green;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px green;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }

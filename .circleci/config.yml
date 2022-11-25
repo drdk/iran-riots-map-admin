@@ -1,0 +1,258 @@
+version: 2.0
+jobs:
+  Build Static Content:
+    docker:
+      # Change this to an image that suits your build requirements..
+      # See: https://circleci.com/docs/2.0/circleci-images/
+      - image: node:12-slim
+    environment:
+      # Tells our sample build script where to output results.
+      APP_FILES: "workspace/output"
+    steps:
+      # Checkout our code from Github.
+      - checkout
+
+      # Setup a folder for our static content
+      - run:
+          name: Setup Workspace.
+          command: mkdir -p workspace/output
+
+      # ca-certificates is needed when signing workspace tar
+      - run:
+          name: Install Dependencies.
+          command: apt-get update && apt-get install ca-certificates -y
+      # Build your files, and output them to /tmp/workspace/output (or change the workspace settings below to suit your needs)
+      - run:
+          name: Build.
+          command: npm install && npm run build -- -t prod
+
+      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - output
+  Build Static Content Preprod:
+    docker:
+      # Change this to an image that suits your build requirements..
+      # See: https://circleci.com/docs/2.0/circleci-images/
+      - image: node:12-slim
+    environment:
+      # Tells our sample build script where to output results.
+      APP_FILES: "workspace/output"
+    steps:
+      # Checkout our code from Github.
+      - checkout
+
+      # Setup a folder for our static content
+      - run:
+          name: Setup Workspace.
+          command: mkdir -p workspace/output
+
+      # ca-certificates is needed when signing workspace tar
+      - run:
+          name: Install Dependencies.
+          command: apt-get update && apt-get install ca-certificates -y
+      # Build your files, and output them to /tmp/workspace/output (or change the workspace settings below to suit your needs)
+      - run:
+          name: Build.
+          command: npm install && npm run build -- -t preprod
+
+      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - output
+  Publish to www.dr.dk:
+    docker:
+      - image: drdkorg/statisk-deployer:1
+        auth:
+          username: $DOCKER_LOGIN
+          password: $DOCKER_PASSWORD
+    environment:
+      # App will be available at /statisk/<APP-NAME>/ if you need to change this after first deploy, please contact devops
+      APP_NAME: feature/iran-riots-map-admin
+      # Options: www.dr.dk, preprod.dr.dk and test.dr.dk
+      APP_HOSTNAME: www.dr.dk
+      # Currently only statisk is an option here, if you see a need for more options let us know
+      APP_BASE_PATH: statisk
+      # The absolute path to the static files you wish to push to NetStorage.
+      APP_FILES: /tmp/workspace/output
+
+    steps:
+      # Previous build job put static content to be uploaded to NetStorage in workspace, lets attatch that..
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /tmp/workspace
+
+      # We use ssh key authenticate with NetStorage
+      - add_ssh_keys:
+          fingerprints:
+            - "ac:d2:02:17:d6:1e:6f:f5:70:5c:76:4d:fc:31:3b:ac"
+
+      # Run the publish script to generate deployment info and rsync upload files to NetStorage
+      - run:
+          name: Update NetStorage
+          command: publish
+
+      # Send a slack notification with links and info..
+      - run:
+          name: Slack Notify
+          command: |
+            slack --success
+
+      # Send a slack notification only on failure..
+      - run:
+          name: Failure
+          command: |
+            slack --failure
+          when: on_fail
+
+  Publish to preprod.dr.dk:
+    docker:
+      - image: drdkorg/statisk-deployer:1
+        auth:
+          username: $DOCKER_LOGIN
+          password: $DOCKER_PASSWORD
+    environment:
+      # App will be available at /statisk/<APP-NAME>/ if you need to change this after first deploy, please contact devops
+      APP_NAME: feature/iran-riots-map-admin
+      # Options: www.dr.dk, preprod.dr.dk and test.dr.dk
+      APP_HOSTNAME: preprod.dr.dk
+      # Currently only statisk is an option here, if you see a need for more options let us know
+      APP_BASE_PATH: statisk
+      # The absolute path to the static files you wish to push to NetStorage.
+      APP_FILES: /tmp/workspace/output
+
+    steps:
+      # Previous build job put static content to be uploaded to NetStorage in workspace, lets attatch that..
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /tmp/workspace
+
+      # We use ssh key authenticate with NetStorage
+      - add_ssh_keys:
+          fingerprints:
+            - "ac:d2:02:17:d6:1e:6f:f5:70:5c:76:4d:fc:31:3b:ac"
+
+      # Run the publish script to generate deployment info and rsync upload files to NetStorage
+      - run:
+          name: Update NetStorage
+          command: publish
+
+      # Send a slack notification with links and info..
+      - run:
+          name: Slack Notify
+          command: |
+            slack --success
+
+      # Send a slack notification only on failure..
+      - run:
+          name: Failure
+          command: |
+            slack --failure
+          when: on_fail
+
+  Publish to test.dr.dk:
+    docker:
+      - image: drdkorg/statisk-deployer:1
+        auth:
+          username: $DOCKER_LOGIN
+          password: $DOCKER_PASSWORD
+    environment:
+      # App will be available at /statisk/<APP-NAME>/ if you need to change this after first deploy, please contact devops
+      APP_NAME: feature/iran-riots-map-admin
+      # Options: www.dr.dk, preprod.dr.dk and test.dr.dk
+      APP_HOSTNAME: test.dr.dk
+      # Currently only statisk is an option here, if you see a need for more options let us know
+      APP_BASE_PATH: statisk
+      # The absolute path to the static files you wish to push to NetStorage.
+      APP_FILES: /tmp/workspace/output
+
+    steps:
+      # Previous build job put static content to be uploaded to NetStorage in workspace, lets attatch that..
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: /tmp/workspace
+
+      # We use ssh key authenticate with NetStorage
+      - add_ssh_keys:
+          fingerprints:
+            - "ac:d2:02:17:d6:1e:6f:f5:70:5c:76:4d:fc:31:3b:ac"
+
+      # Run the publish script to generate deployment info and rsync upload files to NetStorage
+      - run:
+          name: Update NetStorage
+          command: publish
+
+      # Send a slack notification with links and info..
+      - run:
+          name: Slack Notify
+          command: |
+            slack --success
+
+      # Send a slack notification only on failure..
+      - run:
+          name: Failure
+          command: |
+            slack --failure
+          when: on_fail
+  Static Code Scanner:
+    docker:
+      - image: drdkorg/devops-code-scanner:1.0
+        auth:
+          username: $DOCKER_LOGIN
+          password: $DOCKER_PASSWORD
+    steps:
+      - checkout
+      - run:
+          name: Start scanner
+          command: scanner --all
+
+workflows:
+  version: 2
+  AppDeploy:
+    jobs:
+      - Build Static Content:
+          filters:
+            branches:
+              only:
+                - master
+      - Build Static Content Preprod:
+          filters:
+            branches:
+              only:
+                - preprod
+      - Static Code Scanner:
+          filters:
+            branches:
+              only:
+                - master
+                - preprod
+                - devops-pipeline-setup
+      - Publish to www.dr.dk:
+          requires:
+            - Build Static Content
+          filters:
+            branches:
+              only:
+                - master
+      - Publish to preprod.dr.dk:
+          requires:
+            - Build Static Content Preprod
+          filters:
+            branches:
+              only:
+                - preprod
+      - Publish to test.dr.dk:
+          requires:
+            - Build Static Content
+          filters:
+            branches:
+              only:
+                - devops-pipeline-setup

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="/" />
+    <meta charset="UTF-8">
+    <title>Parceljs Boilerplate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.dr.dk/global/publik.css" />
+    <script src="https://www.dr.dk/global-navigation/topbarbundle-nonsticky.js"></script>
+    <script id="ensighten-script" src="https://www.dr.dk/drdk-ensighten/Bootstrap.js"></script>
+    <script src="https://www.dr.dk/drWebStat/drWebStat.js"></script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div iran-riots-map-admin>
+
+        <div id="error"></div>
+
+        <main>
+            <h1>Administrer krigskort</h1>
+            <!-- <h2>DatO: {date}</h2> -->
+            <form>
+                <div class="header-wrapper">
+                    <div class="date-wrapper">
+                        <label for="date">Vælg dato:</label>
+
+                        <input type="date" id="date" name="date" min="2022-01-01" max="2022-12-31" />
+                    </div>
+                    <div class="publication-wrapper">
+                        <div id="publication-status"></div>
+                        <label class="switch">
+                            <input type="checkbox" id="publication-button">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div id="entry-wrapper">
+
+                    <div class="input-wrapper">
+                        <label id="file-label" for="layer-path">Fil til kort-layer</label>
+                        <input id="file" type="file" />
+                        <div class="file-upload-wrapper">
+
+                            <button id="upload">Vælg&nbsp;fil</button>
+                            <button id="delete-file">Slet&nbsp;fil</button>
+                            <input type="text" name="file-name" id="file-name" disabled/>
+                        </div>
+                    </div>
+
+                    <div id="map-wrapper">
+
+                    </div>
+                    <div id="events">
+
+                    </div>
+                    <div class="actions right">
+
+
+                        <button class="green " id="add-event">Tilføj markering</button>
+
+                    </div>
+                    <div id="headlines">
+                        <h2>Dagens overskrifter</h2>
+                        <div class="headlines-wrapper">
+                            <input maxlength="100" type="text" name="title" class="title" placeholder="Rubrik"/>
+                            <input maxlength="100" type="text" name="title" class="title" placeholder="Rubrik"/>
+                            <input maxlength="100" type="text" name="title" class="title" placeholder="Rubrik"/>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div class="save-reset">
+                            <button class="green" id="save">Gem ændringer</button>
+                            <button id="reset">Fortryd ændringer</button>
+                            <div id="feedback"></div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+            </form>
+        </main>
+
+        <template id="event-template">
+            <div class="event-wrapper" data-id="0">
+                <div class="event-header">
+                    <div class="number-wrapper"></div>
+                    <svg version="1.1" class="handle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 38 14" style="enable-background:new 0 0 38 14;" xml:space="preserve">
+
+                        <g>
+                            <g>
+                                <rect x="-0.2" y="0.5" class="grab-lines" width="38" height="2.3"/>
+                            </g>
+                            <g>
+                                <rect x="-0.2" y="6.4" class="grab-lines" width="38" height="2.3"/>
+                            </g>
+                            <g>
+                                <rect x="-0.2" y="12.3" class="grab-lines" width="38" height="2.3"/>
+                            </g>
+                        </g>
+                    </svg>
+                    <button delete-button>
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                            viewBox="0 0 40 40" style="enable-background:new 0 0 40 40;" xml:space="preserve">
+                            <g>
+                                <polygon class="trashcan" points="26,5 26,2 14,2 14,5 5,5 5,8 35,8 35,5 	"/>
+                                <path class="trashcan" d="M8,38h24V11H8V38z M24.5,15.5h3v18h-3V15.5z M18.5,15.5h3v18h-3V15.5z M12.5,15.5h3v18h-3V15.5z"/>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="title">Overskrift</label>
+                    <input type="text" name="title" class="title" maxlength="63" placeholder="Overskrift (max 63 tegn)"/>
+                </div>
+                <div class="input-wrapper">
+                    <label for="place">Url</label>
+                    <input type="text" name="url" class="url" placeholder="Link til evt artikel"/>
+                </div>
+                <div class="input-wrapper">
+                    <label for="description">Beskrivelse</label>
+                    <textarea name="description" class="description" placeholder="Kortere beskrivende tekst"></textarea>
+
+                </div>
+                <input type="hidden" name="x" class="x" />
+                <input type="hidden" name="y" class="y" />
+
+            </div>
+        </template>
+
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>

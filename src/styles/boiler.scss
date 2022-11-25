@@ -1,0 +1,48 @@
+@import './global.scss';
+
+.content{
+	font-family:Publik;
+	font-weight: 400;
+	width:400px;
+	.highlight{
+		font-weight: 600;
+		color:rgb(155, 27, 27);
+		// font-family: gibsonSemiBold;
+	}
+	.path-thing{
+		font-family: monospace;
+		color:grey;
+	}
+	img{
+		display:block;
+		width:25%;
+		margin:3em auto;
+	}
+}
+.debug-container{
+	margin-left:20px;
+	margin-top:20px;
+	padding:20px;
+	// font-family: gibsonLight;
+	background: #eeeeee;
+	border: 1px solid #dddddd;
+
+}
+.css-path-test{
+	color:rgb(0, 0, 0);
+	width:40%;
+	font-weight: 100;
+	letter-spacing: -0.04em;
+	margin:auto;
+	text-align: left;
+	line-height: 3em;
+	background-image: url($assetpath+'images/plane.svg');
+	background-repeat: no-repeat;
+	background-position: 60% 50%;
+}
+.data-test{
+	font-weight: 600;
+	margin:2em 0 0 0;
+	padding:1em 0 0 0;
+	border-top:1px solid rgb(197, 197, 197);
+}
