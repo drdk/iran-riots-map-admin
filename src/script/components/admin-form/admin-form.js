@@ -94,18 +94,7 @@ export default class AdminForm {
             event.preventDefault()
             this.saveDate();
         })
-        this.uploadButtonElement.addEventListener('click', (event) => {
-            event.preventDefault()
-            this.fileElement.click();
-        })
 
-        this.deleteFileButtonElement.addEventListener('click', (event) => {
-            event.preventDefault()
-            this.entity.file = ''
-            this.entity.fileName = '';
-            this.fileNameElement.value = ''
-            eventEmitter.dispatchEvent('fronts-file-change', this.entity.file)
-        })
 
         eventEmitter.addEventListener('update-position', data => {
 
@@ -117,19 +106,7 @@ export default class AdminForm {
 
         })
 
-        this.fileElement.addEventListener('change', (event) => {
-            console.log(event)
-            const file = event.target.files[0];
-            this.entity.fileName = file.name;
-            this.fileNameElement.value = file.name;
-            file.text().then(string => {
 
-                this.entity.file = string;
-                eventEmitter.dispatchEvent('fronts-file-change', this.entity.file)
-                this.saveDate();
-            })
-
-        })
 
     }
     reset() {
@@ -226,9 +203,9 @@ export default class AdminForm {
         if (!data) {
             return;
         }
-        this.fileNameElement.value = data.fileName || '';
+        
         this.publicationButton.checked = !!data.public;
-        this.fileElement.value = '';
+        
         console.log(data.public)
         console.log(!!data.public)
         console.log(Number(!!data.public))

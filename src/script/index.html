@@ -24,7 +24,7 @@
         <div id="error"></div>
 
         <main>
-            <h1>Administrer krigskort</h1>
+            <h1>Administrer Oprørskort</h1>
             <!-- <h2>DatO: {date}</h2> -->
             <form>
                 <div class="header-wrapper">
@@ -43,16 +43,6 @@
                 </div>
                 <div id="entry-wrapper">
 
-                    <div class="input-wrapper">
-                        <label id="file-label" for="layer-path">Fil til kort-layer</label>
-                        <input id="file" type="file" />
-                        <div class="file-upload-wrapper">
-
-                            <button id="upload">Vælg&nbsp;fil</button>
-                            <button id="delete-file">Slet&nbsp;fil</button>
-                            <input type="text" name="file-name" id="file-name" disabled/>
-                        </div>
-                    </div>
 
                     <div id="map-wrapper">
 
@@ -63,22 +53,16 @@
                     <div class="actions right">
 
 
-                        <button class="green " id="add-event">Tilføj markering</button>
-
+                        
                     </div>
-                    <div id="headlines">
-                        <h2>Dagens overskrifter</h2>
-                        <div class="headlines-wrapper">
-                            <input maxlength="100" type="text" name="title" class="title" placeholder="Rubrik"/>
-                            <input maxlength="100" type="text" name="title" class="title" placeholder="Rubrik"/>
-                            <input maxlength="100" type="text" name="title" class="title" placeholder="Rubrik"/>
-                        </div>
-                    </div>
+                   
                     <div class="actions">
                         <div class="save-reset">
                             <button class="green" id="save">Gem ændringer</button>
                             <button id="reset">Fortryd ændringer</button>
                             <div id="feedback"></div>
+                            <button class="green " id="add-event">Tilføj markering</button>
+
                         </div>
 
 

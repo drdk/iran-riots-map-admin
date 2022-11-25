@@ -1,8 +1,8 @@
-'use strict';
+import { gsap } from "gsap";
+
 
 import './map.scss';
 import eventEmitter from '../../utils/event-emitter';
-import { gsap } from "gsap";
 import Draggable from "gsap/Draggable";
 
 gsap.registerPlugin(Draggable);
@@ -11,14 +11,10 @@ gsap.registerPlugin(Draggable);
 export default class Map {
     constructor() {
         this.build();
-        fetch('https://storage.googleapis.com/sheet-parser/fb39d5b08b6a7b777ae26b38465b7b76-ukrainekorttidslinje-konfiguration.json')
-            .then(data => data.json())
-            .then(data => {
-                this.config = data.data[0];
+        
+        this.populateLayers();
 
-                this.populateLayers();
-
-            })
+        
 
     }
 
@@ -32,8 +28,7 @@ export default class Map {
 
         //this.buildEvents();
         this.buildBasemap();
-        this.buildFronts();
-        this.buildNamesLayer();
+
         this.buildPlaceLayer();
 
         eventEmitter.addEventListener('select-date', (data) => {
@@ -99,40 +94,13 @@ export default class Map {
 
 
     }
-    buildFronts() {
 
-            this.overlayEl = document.createElement('div');
-            this.overlayEl.id = `front-overlay`;
 
-            this.mapWrapper.appendChild(this.overlayEl)
-
-    }
-    buildNamesLayer() {
-        this.namesPicture = document.createElement('picture');
-        this.namesPicture.id = 'names-picture';
-        this.mapWrapper.appendChild(this.namesPicture)
-
-    }
     populateLayers() {
 
-        this.basemapWrapper.src = this.config.grundkort;
+        this.basemapWrapper.src = 'https://media.albatros-travel.dk/9b9b4363-180c-4ee8-a6ab-0291f2b8733a/kort-iran/W1280';
 
-        const sourceDesk = document.createElement("source");
-        sourceDesk.media = "(min-width: 700px)"
-        sourceDesk.srcset = this.config['navne-desk'];
 
-        const sourceMobile = document.createElement("source");
-        sourceMobile.media = "(max-width: 699px)"
-        sourceMobile.srcset = this.config['navne-mobil'];
-
-        const img = document.createElement("img");
-        img.src = this.config['navne-mobil'];
-        img.alt = 'Bynavne';
-        img.id = 'names-image';
-
-        this.namesPicture.appendChild(sourceDesk);
-        this.namesPicture.appendChild(sourceMobile);
-        this.namesPicture.appendChild(img);
     }
     buildPlaceLayer() {
 
