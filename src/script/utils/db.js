@@ -1,4 +1,4 @@
-const BASE_URL = 'https://ukraine-war-api.private.prod.gcp.dr.dk/tjenester/ukraine-war-api/private/fronts-events-map'
+const BASE_URL = 'https://current-news-api.private.prod.gcp.dr.dk/tjenester/current-news-api/public/iran-riots'
 //const BASE_URL = 'http://localhost:3000/tjenester/ukraine-war-api/private/fronts-events-map'
 
 
