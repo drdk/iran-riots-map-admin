@@ -32,23 +32,9 @@ export default class Map {
         this.buildPlaceLayer();
 
         eventEmitter.addEventListener('select-date', (data) => {
-
-            if (data.detail.file) {
-                this.updateFrontLayer(data.detail.file)
-            } else {
-                this.updateFrontLayer()
-            }
             this.updatePlaceLayer(data.detail.events)
         })
 
-        eventEmitter.addEventListener('fronts-file-change', event => {
-
-            console.log('new svg')
-            console.log(event)
-
-            this.updateFrontLayer(event.detail);
-
-        })
 
         eventEmitter.addEventListener('add-event', data => {
             console.log(data.detail)
@@ -70,19 +56,7 @@ export default class Map {
         }
         return url.protocol === "http:" || url.protocol === "https:";
     }
-    updateFrontLayer(svg) {
 
-        if (svg) {
-
-            this.overlayEl.innerHTML = svg;
-
-        } else {
-            //this.overlayEl.setAttribute()
-            this.overlayEl.innerText = ''
-        }
-
-
-    }
 
     buildBasemap() {
 

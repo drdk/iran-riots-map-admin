@@ -1,7 +1,6 @@
 const BASE_URL = 'https://current-news-api.private.prod.gcp.dr.dk/tjenester/current-news-api/private/iran-riots'
 //const BASE_URL = 'http://localhost:3000/tjenester/current-news-api/private/iran-riots'
 
-
 function getEntity(date) {
     return fetch(BASE_URL + '/map-entry/' + date).then(data => data.json())
 }

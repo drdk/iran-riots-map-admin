@@ -1,5 +1,3 @@
-'use strict';
-
 import './admin-form.scss';
 import { getEntity, saveEntity } from "../../utils/db";
 // Default SortableJS
@@ -26,11 +24,7 @@ export default class AdminForm {
         this.eventsElement = document.getElementById('events')
         this.addEventButtonElement = document.getElementById('add-event')
         this.saveButtonElement = document.getElementById('save')
-        this.uploadButtonElement = document.getElementById('upload')
-        this.deleteFileButtonElement = document.getElementById('delete-file')
 
-        this.fileElement = document.getElementById('file')
-        this.fileNameElement = document.getElementById('file-name')
         this.resetButtonElement = document.getElementById('reset')
         this.feedbackElement = document.getElementById('feedback')
         this.eventTemplate = document.querySelector('#event-template');
