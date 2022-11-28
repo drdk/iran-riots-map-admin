@@ -73,7 +73,7 @@ export default class Map {
     populateLayers() {
 
         
-        this.basemapWrapper.src = process.env.ASSETS_PATH + 'images/basemap-v2.svg';
+        this.basemapWrapper.src = process.env.ASSETS_PATH + 'images/basemap-v3.svg';
 
     }
     buildPlaceLayer() {
