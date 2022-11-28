@@ -98,8 +98,8 @@ export default class Map {
 
     populateLayers() {
 
-        this.basemapWrapper.src = 'https://media.albatros-travel.dk/9b9b4363-180c-4ee8-a6ab-0291f2b8733a/kort-iran/W1280';
-
+        
+        this.basemapWrapper.src = process.env.ASSETS_PATH + 'images/basemap-v2.svg';
 
     }
     buildPlaceLayer() {
