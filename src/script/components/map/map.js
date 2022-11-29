@@ -82,7 +82,7 @@ export default class Map {
         this.placeWrapper.id = 'place-wrapper'
         this.placeWrapper.innerHTML = `
             <svg version="1.1" id="map-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 300 197.65" style="enable-background:new 0 0 300 197.65;" xml:space="preserve">
+                viewBox="0 0 372 369" style="enable-background:new 0 0 300 197.65;" xml:space="preserve">
 
             </svg>
         `;
