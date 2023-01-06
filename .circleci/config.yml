@@ -93,7 +93,7 @@ jobs:
       # We use ssh key authenticate with NetStorage
       - add_ssh_keys:
           fingerprints:
-            - "ac:d2:02:17:d6:1e:6f:f5:70:5c:76:4d:fc:31:3b:ac"
+            - "da:8d:b6:ab:f1:29:99:3a:08:3c:7e:5a:a0:71:90:55"
 
       # Run the publish script to generate deployment info and rsync upload files to NetStorage
       - run:
@@ -138,7 +138,7 @@ jobs:
       # We use ssh key authenticate with NetStorage
       - add_ssh_keys:
           fingerprints:
-            - "ac:d2:02:17:d6:1e:6f:f5:70:5c:76:4d:fc:31:3b:ac"
+            - "da:8d:b6:ab:f1:29:99:3a:08:3c:7e:5a:a0:71:90:55"
 
       # Run the publish script to generate deployment info and rsync upload files to NetStorage
       - run:
@@ -183,7 +183,7 @@ jobs:
       # We use ssh key authenticate with NetStorage
       - add_ssh_keys:
           fingerprints:
-            - "ac:d2:02:17:d6:1e:6f:f5:70:5c:76:4d:fc:31:3b:ac"
+            - "da:8d:b6:ab:f1:29:99:3a:08:3c:7e:5a:a0:71:90:55"
 
       # Run the publish script to generate deployment info and rsync upload files to NetStorage
       - run:
