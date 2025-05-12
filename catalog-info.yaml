@@ -1,0 +1,26 @@
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-component
+# Warning: It is not recommended to make direct edits to this file.
+# Please use the "Edit" button located within DR Backstage to make any modifications.
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: iran-riots-map-admin # Name is used as identifier, use title for setting a display name
+  title: "iran-riots-map-admin"
+  description: "undefined"
+  links:
+    []
+  annotations:
+    {}
+  tags:
+    []
+spec:
+  type: undefined
+  lifecycle: undefined
+  owner: INHERIT_FROM_SYSTEM
+  system: system:default/dr-nyheder-digital
+  consumesApis:
+    []
+  providesApis:
+    []
+  dependsOn:
+    []
