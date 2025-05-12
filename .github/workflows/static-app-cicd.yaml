@@ -6,7 +6,7 @@ on:
     branches:
       - master
       - preprod
-      - test
+      - devops-pipeline-setup
 
 jobs:
   build-or-prepare:
@@ -43,7 +43,7 @@ jobs:
             hostname: www.dr.dk
           - if: ${{ github.ref_name == 'preprod' }}
             hostname: preprod.dr.dk
-          - if: ${{ github.ref_name == 'test' }}
+          - if: ${{ github.ref_name == 'devops-pipeline-setup' }}
             hostname: test.dr.dk
         exclude: # Use "exclude" to skip jobs as matrix values cannot be used in jobs.<job_id>.if statements.
           - environment:
