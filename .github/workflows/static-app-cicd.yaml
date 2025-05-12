@@ -1,0 +1,55 @@
+# This workflow uses npm by default.
+# If you need to use yarn or add testing steps, feel free to modify the build job accordingly.
+name: Static App CI/CD
+on:
+  push:
+    branches:
+      - master
+      - preprod
+      - devops-pipeline-setup
+
+jobs:
+  build-or-prepare:
+    runs-on: ubuntu-latest
+    name: Build or prepare static files
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '12.x'
+          cache: 'npm'
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run build
+      - name: Upload artifact
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.sha }}
+          path: 'workspace/output'
+          retention-days: 1
+          if-no-files-found: error
+
+  publish:
+    needs: build-or-prepare
+    name: Publish static files
+    uses: drdk/github-workflows/.github/workflows/static-app-publisher.yaml@v2
+    strategy:
+      matrix:
+        environment:
+          - if: ${{ github.ref_name == 'master' }}
+            hostname: www.dr.dk
+          - if: ${{ github.ref_name == 'preprod' }}
+            hostname: preprod.dr.dk
+          - if: ${{ github.ref_name == 'devops-pipeline-setup' }}
+            hostname: test.dr.dk
+        exclude: # Use "exclude" to skip jobs as matrix values cannot be used in jobs.<job_id>.if statements.
+          - environment:
+              if: false
+    with:
+      SLUG: feature/iran-riots-map-admin # It's not possible to update the slug in this yaml file, contact Cloud & DevEx if you're in need to update this
+      HOSTNAME: ${{ matrix.environment.hostname }}
+      SLACK_CHANNEL: circle-notifications
+    secrets: inherit
